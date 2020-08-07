@@ -1,0 +1,8 @@
+# https://code.visualstudio.com/docs/remote/troubleshooting#_resolving-git-line-ending-issues-in-containers-resulting-in-many-modified-files
+# Note that this works in Git v2.10+, so if you are running into problems, be sure you've got a recent Git client installed. You can add other file types in your repository that require CRLF to this same file.
+
+# textファイルは自動でeolをlfにする. ただしwindowsのcmd, batファイルはcrlf出ないと動かないのでそれはcrlfにしておく.
+# これが混在環境では良いだろう, ということ.
+* text=auto eol=lf
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
