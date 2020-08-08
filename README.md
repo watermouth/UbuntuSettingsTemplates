@@ -55,12 +55,22 @@ WSL2 backend の Dockerを使う.
   - よくわからないもの: https://github.com/Microsoft/WSL/issues/1766
   - wslpath: 何やらどこかで使えそうなもの. https://laboradian.com/wslpath-command-for-wsl/
 
-- docker コマンドが見つからない?
-
-? windows 上の docker へのパスがなくなっている (distributionからの)
-
-? docker daemonを起動していない
-
+- docker コマンドが見つからない?  
+  WSL2では WSL Integration の設定がされていれば, distributionのPATH上でWindows上にインストールしたdockerとおそらく等価なexeを実行できる.
+  /usr/bin/docker が存在しているため.
+  ``` bash
+  $ which docker
+  /usr/bin/docker
+  ```
+  ```
+  $ ls -l /usr/bin/
+  ...
+  lrwxrwxrwx  1 root   root          48  8月  8 19:48  docker -> /mnt/wsl/docker-desktop/cli-tools/usr/bin/docker
+  lrwxrwxrwx  1 root   root          56  8月  8 19:48  docker-compose -> /mnt/wsl/docker-desktop/cli-tools/usr/bin/docker-compose
+  ...
+  ```
+  となっている. docker daemonが起動すると /mnt/wsl にファイルが配置されるようである.
+  - docker daemonを起動していないと, docker コマンドは見つからない. /usr/bin/docker 自体はあるが, /mnt/wsl/docker-desktop/cli-tools/ までしか存在しないため.
 
 ## 参考文献
 
