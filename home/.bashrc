@@ -122,3 +122,6 @@ set -o vi
 
 #echo "auto mount"
 #./.setup_permission_operate
+
+# for WSL2
+export PATH="${PATH}":"/mnt/c/Program Files/Microsoft VS Code/bin" # ダメ. 空白が邪魔

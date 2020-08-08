@@ -12,10 +12,23 @@ cp .gitattributes_template ~/
 cp .inputrc ~/
 # cp .setup_permission_operate ~/ # probably not necessary
 cp -r .ssh ~/
-cd ~/
+
+# /etc/wsl.conf
+echo "Don't make $PATH get Windows' %PATH% envirionment variable"
+cd ../
+if [ ! -e /etc/wsl.conf ]; then
+    # copy
+    echo "create /etc/wsl.conf by copying"
+    sudo cp etc/wsl.conf /etc/wsl.conf
+else
+    # append
+    echo "append /etc/wsl.conf "
+    sudo cat tc/wsl.conf >> /etc/wsl.conf
+fi
 
 # set authorized_keys
-echo set authorized_keys file, if you want.
+cd ~/
+echo "set authorized_keys file, if you want."
 echo create authorized_keys files
 touch .ssh/authorized_keys
 # cat .ssh/id_rsa.pub >> .ssh/authorized_keys
