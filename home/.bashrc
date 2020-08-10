@@ -124,4 +124,4 @@ set -o vi
 #./.setup_permission_operate
 
 # for WSL2
-export PATH="${PATH}":"/mnt/c/Program Files/Microsoft VS Code/bin" # ダメ. 空白が邪魔
+export PATH="${PATH}":"/mnt/c/Program Files/Microsoft VS Code/bin"
