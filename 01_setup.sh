@@ -23,7 +23,7 @@ if [ ! -e /etc/wsl.conf ]; then
 else
     # append
     echo "append /etc/wsl.conf "
-    sudo cat tc/wsl.conf >> /etc/wsl.conf
+    sudo cat etc/wsl.conf >> /etc/wsl.conf
 fi
 
 # set authorized_keys
@@ -35,7 +35,7 @@ touch .ssh/authorized_keys
 # rm .ssh/id_rsa.pub
 
 # set permission
-echo set permission
+echo "set permission"
 chmod 700 .ssh
 chmod 640 .ssh/authorized_keys
 
