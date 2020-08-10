@@ -1,8 +1,10 @@
 #!/bin/bash
 set -eu # e: error exit, u: error on undefined variable 
 
+CWD=`pwd`
+
 # copy
-echo copy files
+echo "copy files"
 cd ./home
 cp .vimrc ~/
 cp .bashrc ~/
@@ -14,7 +16,7 @@ cp .inputrc ~/
 cp -r .ssh ~/
 
 # /etc/wsl.conf
-echo "Don't make $PATH get Windows' %PATH% envirionment variable"
+echo "Don't make \$PATH get Windows' %PATH% envirionment variable"
 cd ../
 if [ ! -e /etc/wsl.conf ]; then
     # copy
@@ -23,8 +25,10 @@ if [ ! -e /etc/wsl.conf ]; then
 else
     # append
     echo "append /etc/wsl.conf "
-    sudo cat etc/wsl.conf >> /etc/wsl.conf
+    cat etc/wsl.conf | sudo tee -a /etc/wsl.conf
 fi
+
+sleep 1
 
 # set authorized_keys
 cd ~/
@@ -52,4 +56,11 @@ chmod 640 .ssh/authorized_keys
 echo Create ssh key pair: type enter, enter and enter, if you want.
 ssh-keygen -t ed25519 -C "$USER@`hostname`"
 
-echo Done!
+echo "To reflect /etc/wsl.conf, "
+echo "Do 'Restart-Service LxssManager' by powershell with administrator previlege. This will shutdown WSL."
+
+# # not working.
+# cd $CWD
+# sudo /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File 01_01.ps1
+
+

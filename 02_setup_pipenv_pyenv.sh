@@ -28,10 +28,12 @@ sudo apt install --no-install-recommends make libssl-dev zlib1g-dev libbz2-dev l
 echo "Installing pyenv"
 # refer to https://github.com/pyenv/pyenv#installation
 
+if [ ! -d ~/.pyenv ]; then
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+fi
 
-echo export PYENV_ROOT="$HOME/.pyenv" >> ~/.bashrc
-echo export PATH="$PYENV_ROOT/bin:$PATH" >> ~/.bashrc
+echo export PYENV_ROOT=$HOME/.pyenv >> ~/.bashrc
+echo export PATH=$PYENV_ROOT/bin:$PATH >> ~/.bashrc
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
 exec "$SHELL"
 
