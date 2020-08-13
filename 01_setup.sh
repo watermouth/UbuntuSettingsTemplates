@@ -16,7 +16,7 @@ cp .inputrc ~/
 cp -r .ssh ~/
 
 # /etc/wsl.conf
-echo "Don't make \$PATH get Windows' %PATH% envirionment variable"
+echo "Make \$PATH not get Windows' %PATH% envirionment variable"
 cd ../
 if [ ! -e /etc/wsl.conf ]; then
     # copy
@@ -63,4 +63,6 @@ echo "Do 'Restart-Service LxssManager' by powershell with administrator previleg
 # cd $CWD
 # sudo /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File 01_01.ps1
 
+# for vs code execution
+export PATH=\$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin"
 
