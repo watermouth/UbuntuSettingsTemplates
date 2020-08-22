@@ -114,3 +114,36 @@ export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Fil
 ### 参考
 
 - https://roy-n-roy.github.io/Windows/WSL%EF%BC%86%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A/DockerDesktopError/
+
+## いつの間にかvscodeを使っていると, user/password 認証を使っているremote repository に対して git push 出来なくなった
+
+### 現象
+
+``` bash
+watermouth@DESKTOP-RSIV4E1:~/proj/UbuntuSettingsTemplates$ git push origin master
+fatal: cannot run /home/watermouth/.vscode-server/bin/91899dcef7b8110878ea59626991a18c8a6a1b3e/extensions/git/dist/askpass.sh: そのようなファイルやディレクトリはありません
+Username for 'https://github.com':
+
+watermouth@DESKTOP-RSIV4E1:~/proj/UbuntuSettingsTemplates$ ll ~/.vscode-server/bin/
+合計 12
+drwxr-xr-x 3 watermouth watermouth 4096  8月 22 08:43 ./
+drwxr-xr-x 5 watermouth watermouth 4096  8月  8 19:30 ../
+drwxr-xr-x 6 watermouth watermouth 4096  8月 22 08:43 3dd905126b34dcd4de81fa624eb3a8cbe7485f13/
+```
+
+vscode-serverの下のフォルダ名が変わっている.
+今回の場合は, vscodeのバージョンを上げて, vscode-serverが更新されたことが原因と思われる.
+
+### 対策
+
+``` bash  
+  git config --global credential.helper cache
+  git push origin master # などでusername/password 認証を実行. 以後はキャッシュされるらしく, username/password入力不要になる.
+```
+
+public/private key を使うべきという話ではある.
+
+### 参考
+
+- https://github.com/cdr/code-server/issues/208
+
