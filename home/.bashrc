@@ -124,5 +124,5 @@ set -o vi
 #./.setup_permission_operate
 
 # for vs code execution
-export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin"
+export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/Docker/Docker/resources/bin"
 

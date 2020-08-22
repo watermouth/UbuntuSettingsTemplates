@@ -37,7 +37,7 @@ WSL2 backend の Dockerを使う.
     https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/ に記述あり.
     コメントにRestart-Serviceについて書かれている.
 
-- distribution 上での code コマンドが実行できなくなっている.  
+- Ubuntu20.04などのdistribution 上で vscodeを起動する code コマンドが実行できなくなっている.  
   ``` bash
   > code .
   Command is only available in WSL or inside a Visual Studio Code terminal. 
@@ -48,14 +48,14 @@ WSL2 backend の Dockerを使う.
   特に何も設定していなければ自然にWindowsの%PATH%がdistributionの$PATHに引き継がれているため, codeを実行できる. 何らかの$PATHの変更処理を実施しているために生じる問題である.
   対策としては, "/mnt/c/Program Files/Microsoft VS Code/bin" をWindows上のcodeのパスとすると,
   ``` bash
-  export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin" # double quote で囲むのがポイント.
+  export PATH=\$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin" # double quote で囲むのがポイント.
   ```
   $PATHを通せばよい. /etc/wsl.conf にて Windows の %PATH% を引き継ぐ設定にしていれば特に対応不要であるが, 恐らく引き継がない設定にしたうえで, 明示的に必要なパスを追加指定するほうが無難だろう.
   - https://stackoverflow.com/questions/45114147/how-to-set-bash-on-ubuntu-on-windows-environment-variables-from-windows-pat
   - よくわからないもの: https://github.com/Microsoft/WSL/issues/1766
   - wslpath: 何やらどこかで使えそうなもの. https://laboradian.com/wslpath-command-for-wsl/
 
-- docker コマンドが見つからない?  
+- docker コマンドが見つからない  
   WSL2では WSL Integration の設定がされていれば, distributionのPATH上でWindows上にインストールしたdockerとおそらく等価なexeを実行できる.
   /usr/bin/docker が存在しているため.
   ``` bash
@@ -76,3 +76,41 @@ WSL2 backend の Dockerを使う.
 
 いろいろ参考にした結果、参考元が分からなくなっている部分があるため、必要に応じて適宜ご指摘願います。
 
+## docker-compose 実行時にエラー
+
+### 現象
+
+``` bash
+> docker-compose up
+Creating network "hello-world_default" with the default driver
+Building hello
+Traceback (most recent call last):
+  File "bin/docker-compose", line 6, in <module>
+  File "compose/cli/main.py", line 72, in main
+  File "compose/cli/main.py", line 128, in perform_command
+  File "compose/cli/main.py", line 1078, in up
+  File "compose/cli/main.py", line 1074, in up
+  File "compose/project.py", line 548, in up
+  File "compose/service.py", line 367, in ensure_image_exists
+  File "compose/service.py", line 1106, in build
+  File "site-packages/docker/api/build.py", line 261, in build
+  File "site-packages/docker/api/build.py", line 308, in _set_auth_headers
+  File "site-packages/docker/auth.py", line 301, in get_all_credentials
+  File "site-packages/docker/auth.py", line 287, in _get_store_instance
+  File "site-packages/docker/credentials/store.py", line 25, in __init__
+docker.credentials.errors.InitializationError: docker-credential-desktop.exe not installed or not available in PATH
+[2300] Failed to execute script docker-compose
+```
+
+<b>docker.credentials.errors.InitializationError: docker-credential-desktop.exe not installed or not available in PATH
+</b>
+ということなので, (上で明示的に追加していたvs code の他にも)PATHに追加しておく必要があった.
+
+``` bash
+export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/Docker/Docker/resources/bin"
+
+```
+
+### 参考
+
+- https://roy-n-roy.github.io/Windows/WSL%EF%BC%86%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A/DockerDesktopError/
