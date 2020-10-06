@@ -62,7 +62,3 @@ echo "Do 'Restart-Service LxssManager' by powershell with administrator previleg
 # # not working.
 # cd $CWD
 # sudo /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File 01_01.ps1
-
-# for vs code execution
-export PATH=\$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin"
-
