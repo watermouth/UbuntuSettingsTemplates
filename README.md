@@ -51,6 +51,8 @@ WSL2 backend の Dockerを使う.
   export PATH=\$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin" # double quote で囲むのがポイント.
   ```
   $PATHを通せばよい. /etc/wsl.conf にて Windows の %PATH% を引き継ぐ設定にしていれば特に対応不要であるが, 恐らく引き継がない設定にしたうえで, 明示的に必要なパスを追加指定するほうが無難だろう.
+  
+  - ちなみにPATHのような環境変数は.profileでexportしておくのがよい. .bashrcで定義すると, vs code などのプロセスを起動した際に .bashrcで重複してexportしてしまい、環境変数が汚くなる.
   - https://stackoverflow.com/questions/45114147/how-to-set-bash-on-ubuntu-on-windows-environment-variables-from-windows-pat
   - よくわからないもの: https://github.com/Microsoft/WSL/issues/1766
   - wslpath: 何やらどこかで使えそうなもの. https://laboradian.com/wslpath-command-for-wsl/
