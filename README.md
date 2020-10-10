@@ -149,3 +149,13 @@ public/private key を使うべきという話ではある.
 
 - https://github.com/cdr/code-server/issues/208
 
+## docker run 時の default 実行 コマンド
+
+DockerfileのENTRYPOINTで指定されたコマンドが実行される. imageだけ取得した場合はどうやって知るか.
+
+``` bash
+docker image history --no-trunc image_name > image_history
+```
+
+のようにするとよいらしい.
+
