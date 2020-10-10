@@ -123,4 +123,3 @@ set -o vi
 #echo "auto mount"
 #./.setup_permission_operate
 
-

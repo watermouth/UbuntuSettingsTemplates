@@ -6,9 +6,11 @@
 
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
- if [[ "$(umask)" = "0000" ]]; then
-   umask 0022
- fi
+#  if [[ "$(umask)" = "0000" ]]; then
+#    umask 0022
+#  fi
+
+umask 0002 # group user のrwを前提とする
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -32,3 +34,12 @@ fi
 if [ -d "/mnt/c/" ] ; then
     export PATH=$PATH:"/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/Docker/Docker/resources/bin"
 fi
+
+# pyenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+# pipenv property
+export PIPENV_VENV_IN_PROJECT=1
