@@ -123,3 +123,4 @@ set -o vi
 #echo "auto mount"
 #./.setup_permission_operate
 
+umask 0002 # for convinience. this must be in .bashrc 
